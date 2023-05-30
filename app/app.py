@@ -28,4 +28,10 @@ async def get_todo() -> dict:
     return {"data": todos}
 
 
-
+# route for adding data to list
+@app.post("/todo", tags=["todos"])
+async def add_todo(todo: dict) -> dict:
+    todos.append(todo)
+    return {
+        "data": "A todo has been added"
+    }
