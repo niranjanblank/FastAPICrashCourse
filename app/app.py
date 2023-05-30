@@ -29,9 +29,22 @@ async def get_todo() -> dict:
 
 
 # route for adding data to list
-@app.post("/todo", tags=["todos"])
+@app.post("/todo", tags=['todos'])
 async def add_todo(todo: dict) -> dict:
     todos.append(todo)
     return {
         "data": "A todo has been added"
+    }
+
+#updating the todos
+@app.put("/todo/{id}", tags=['todos'])
+async def update_todo(id:int, body:dict) -> dict:
+    for todo in todos:
+        if int(todo['id']) == id:
+            todo['Activity'] = body['Activity']
+            return {
+                "data": f'Todo with  id {id} has been updated'
+            }
+    return {
+        "data": f"Todo with id {id} was not found"
     }
