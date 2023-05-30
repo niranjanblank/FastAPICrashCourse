@@ -48,3 +48,16 @@ async def update_todo(id:int, body:dict) -> dict:
     return {
         "data": f"Todo with id {id} was not found"
     }
+
+# delete item from list
+@app.delete("/todo/{id}", tags=['todos'])
+async def delete_todo(id: int) -> dict:
+    for todo in todos:
+        if int(todo['id']) == id:
+            todos.remove(todo)
+            return {
+                "data": f'Todo with  id {id} has been deleted'
+            }
+    return {
+        "data": f"Todo with id {id} was not found"
+    }
